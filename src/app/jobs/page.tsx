@@ -85,13 +85,15 @@ function JobBoardContent() {
         if (!onChainJobs) return [];
         return onChainJobs
             .map((job, i) => parseOnChainJob(jobIds[i], job))
-            // Only show non-cancelled jobs
-            .filter((j) => j.status !== "Cancelled");
+            // Hide cancelled, completed, and expired jobs
+            .filter((j) => j.status !== "Cancelled" && j.status !== "Completed" && j.timeLeft !== "Expired");
     }, [onChainJobs, jobIds]);
 
-    // Combine: on-chain jobs first, then mock jobs
+    // Combine: on-chain jobs first, then mock jobs (exclude completed/expired)
     const allJobs = useMemo(() => {
-        const mockWithFlag = MOCK_JOBS.map((j) => ({ ...j, isOnChain: false, status: (j as { status?: string }).status || "Open" }));
+        const mockWithFlag = MOCK_JOBS
+            .map((j) => ({ ...j, isOnChain: false, status: (j as { status?: string }).status || "Open" }))
+            .filter((j) => j.status !== "Completed" && j.timeLeft !== "Expired");
         return [...parsedOnChainJobs, ...mockWithFlag];
     }, [parsedOnChainJobs]);
 

@@ -2,7 +2,7 @@
 
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { MOCK_GIG_ABI } from "@/lib/abi";
-import { GIG_TOKEN_ADDRESS, MARKETPLACE_ADDRESS } from "@/lib/contracts";
+import { GIG_TOKEN_ADDRESS, MARKETPLACE_ADDRESS, MONAD_TESTNET_CHAIN_ID } from "@/lib/contracts";
 import { parseEther } from "viem";
 
 // ─────────────── Read Hooks ───────────────
@@ -13,6 +13,7 @@ export function useTokenBalance(address: `0x${string}` | undefined) {
     abi: MOCK_GIG_ABI,
     functionName: "balanceOf",
     args: address ? [address] : undefined,
+    chainId: MONAD_TESTNET_CHAIN_ID,
     query: { enabled: !!address },
   });
 }
@@ -23,6 +24,7 @@ export function useTokenAllowance(owner: `0x${string}` | undefined) {
     abi: MOCK_GIG_ABI,
     functionName: "allowance",
     args: owner ? [owner, MARKETPLACE_ADDRESS] : undefined,
+    chainId: MONAD_TESTNET_CHAIN_ID,
     query: { enabled: !!owner },
   });
 }
@@ -32,6 +34,7 @@ export function useTokenDecimals() {
     address: GIG_TOKEN_ADDRESS,
     abi: MOCK_GIG_ABI,
     functionName: "decimals",
+    chainId: MONAD_TESTNET_CHAIN_ID,
   });
 }
 

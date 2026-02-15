@@ -12,10 +12,9 @@ type ContractAddresses = {
 };
 
 const addresses: Record<number, ContractAddresses> = {
-  // Monad Testnet — replace with real addresses after deployment
   [MONAD_TESTNET_CHAIN_ID]: {
-    gigToken: (process.env.NEXT_PUBLIC_GIG_TOKEN_ADDRESS || "0x0000000000000000000000000000000000000000") as `0x${string}`,
-    gigMarketplace: (process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS || "0x0000000000000000000000000000000000000000") as `0x${string}`,
+    gigToken: "0x280A8e1412920dc1B3c78d41c09cA061f850ccF3" as `0x${string}`,
+    gigMarketplace: "0xF13502b3d2664d60F93270d6fA3faa2D56C0EDbF" as `0x${string}`,
   },
 };
 

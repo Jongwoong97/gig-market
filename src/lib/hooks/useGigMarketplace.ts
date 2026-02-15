@@ -7,7 +7,7 @@ import {
   useWaitForTransactionReceipt,
 } from "wagmi";
 import { GIG_MARKETPLACE_ABI } from "@/lib/abi";
-import { MARKETPLACE_ADDRESS } from "@/lib/contracts";
+import { MARKETPLACE_ADDRESS, MONAD_TESTNET_CHAIN_ID } from "@/lib/contracts";
 
 // ─────────────── Types ───────────────
 
@@ -40,6 +40,7 @@ export function useJobCount() {
     address: MARKETPLACE_ADDRESS,
     abi: GIG_MARKETPLACE_ABI,
     functionName: "jobCount",
+    chainId: MONAD_TESTNET_CHAIN_ID,
   });
 }
 
@@ -49,6 +50,7 @@ export function useJob(jobId: bigint | undefined) {
     abi: GIG_MARKETPLACE_ABI,
     functionName: "getJob",
     args: jobId !== undefined ? [jobId] : undefined,
+    chainId: MONAD_TESTNET_CHAIN_ID,
     query: { enabled: jobId !== undefined },
   });
 
@@ -75,6 +77,7 @@ export function useJobsByHirer(address: `0x${string}` | undefined) {
     abi: GIG_MARKETPLACE_ABI,
     functionName: "getJobsByHirer",
     args: address ? [address] : undefined,
+    chainId: MONAD_TESTNET_CHAIN_ID,
     query: { enabled: !!address },
   });
 }
@@ -85,6 +88,7 @@ export function useJobsByAgent(address: `0x${string}` | undefined) {
     abi: GIG_MARKETPLACE_ABI,
     functionName: "getJobsByAgent",
     args: address ? [address] : undefined,
+    chainId: MONAD_TESTNET_CHAIN_ID,
     query: { enabled: !!address },
   });
 }
@@ -98,6 +102,7 @@ export function useJobs(jobIds: bigint[]) {
     abi: GIG_MARKETPLACE_ABI,
     functionName: "getJob" as const,
     args: [id] as const,
+    chainId: MONAD_TESTNET_CHAIN_ID,
   }));
 
   const result = useReadContracts({ contracts, query: { enabled: jobIds.length > 0 } });

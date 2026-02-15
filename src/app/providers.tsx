@@ -21,7 +21,7 @@ import {
 } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import type { Chain } from "viem";
+import { type Chain, http } from "viem";
 
 const monadTestnet = {
     id: 10143,
@@ -57,6 +57,14 @@ const config = getDefaultConfig({
         arbitrum,
         base,
     ],
+    transports: {
+        [monadTestnet.id]: http("https://testnet-rpc.monad.xyz"),
+        [mainnet.id]: http(),
+        [polygon.id]: http(),
+        [optimism.id]: http(),
+        [arbitrum.id]: http(),
+        [base.id]: http(),
+    },
     ssr: true,
 });
 
